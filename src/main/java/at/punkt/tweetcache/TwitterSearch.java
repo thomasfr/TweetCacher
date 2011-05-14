@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package at.punkt.twittercache;
+package at.punkt.tweetcache;
 
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -19,12 +19,24 @@ public class TwitterSearch {
     private String searchQuery;
     private int resultsPerPage = 100;
 
-    public TwitterSearch(String query) {
-        this.searchQuery = query;
-    }
-
     public QueryResult search() {
         return this.doSearch(0);
+    }
+
+    public int getResultsPerPage() {
+        return resultsPerPage;
+    }
+
+    public void setResultsPerPage(int resultsPerPage) {
+        this.resultsPerPage = resultsPerPage;
+    }
+
+    public String getSearchQuery() {
+        return searchQuery;
+    }
+
+    public void setSearchQuery(String searchQuery) {
+        this.searchQuery = searchQuery;
     }
 
     public QueryResult search(long sinceId) {
@@ -36,7 +48,7 @@ public class TwitterSearch {
         QueryResult result = null;
         try {
             Query query = new Query(this.searchQuery);
-            if(sinceId > 0) {
+            if (sinceId > 0) {
                 query.setSinceId(sinceId);
             }
             query.setRpp(resultsPerPage);
