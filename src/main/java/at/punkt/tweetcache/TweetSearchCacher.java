@@ -10,6 +10,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.document.mongodb.MongoTemplate;
+import org.springframework.data.document.mongodb.query.Order;
+import org.springframework.data.document.mongodb.query.Query;
+import org.springframework.data.document.mongodb.query.Sort;
 import twitter4j.QueryResult;
 import twitter4j.Tweet;
 
@@ -45,6 +48,17 @@ public class TweetSearchCacher {
         long run = 1;
         while (true) {
             try {
+                if (mongoTemplate.collectionExists("Tweets")) {
+                    Query query = new Query();
+                    Sort sort = query.sort();
+                    sort.on("_id", Order.ASCENDING);
+                    query.limit(1);
+                    at.punkt.tweetcache.domain.Tweet lastTweet = mongoTemplate.findOne(query, at.punkt.tweetcache.domain.Tweet.class);
+                    if (lastTweet != null) {
+                        lastId = lastTweet.getid();
+                    }
+                }
+
                 System.out.println("run: #" + run + "; since_id: " + lastId + ";");
 
                 QueryResult result = search.search(lastId);
@@ -57,19 +71,7 @@ public class TweetSearchCacher {
                 System.out.println(tweets.size() + " new Tweet(s)");
 
                 if (!tweets.isEmpty()) {
-                    for (Tweet tweet : tweets) {
-                        at.punkt.tweetcache.domain.Tweet t = new at.punkt.tweetcache.domain.Tweet();
-                        t.setid(tweet.getId());
-                        t.setCreatedAt(tweet.getCreatedAt());
-                        t.setFromUser(tweet.getFromUser());
-                        t.setFromUserId(tweet.getFromUserId());
-                        t.setIsoLanguageCode(tweet.getIsoLanguageCode());
-                        t.setProfileImageUrl(tweet.getProfileImageUrl());
-                        t.setSource(tweet.getSource());
-                        t.setText(tweet.getText());
-                        t.setToUserId(tweet.getToUserId());
-                        mongoTemplate.insert(t);
-                    }
+                    mongoTemplate.insertList(tweets);
                 }
                 run++;
                 System.out.println("Sleeping for " + Math.round(sleep / 1000 / 60) + " minute(s)");
