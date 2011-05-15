@@ -5,6 +5,7 @@
 package at.punkt.tweetcache;
 
 import com.mongodb.DBCollection;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,20 +47,21 @@ public class TweetSearchCacher {
     public void run() {
         long lastId = 0;
         long run = 1;
+
+        if (mongoTemplate.collectionExists("Tweets")) {
+            Query query = new Query();
+            Sort sort = query.sort();
+            sort.on("_id", Order.DESCENDING);
+            query.limit(1);
+            at.punkt.tweetcache.domain.Tweet lastTweet = mongoTemplate.findOne(query, at.punkt.tweetcache.domain.Tweet.class);
+            if (lastTweet != null) {
+                lastId = lastTweet.getid();
+            }
+        }
         while (true) {
             try {
-                if (mongoTemplate.collectionExists("Tweets")) {
-                    Query query = new Query();
-                    Sort sort = query.sort();
-                    sort.on("_id", Order.ASCENDING);
-                    query.limit(1);
-                    at.punkt.tweetcache.domain.Tweet lastTweet = mongoTemplate.findOne(query, at.punkt.tweetcache.domain.Tweet.class);
-                    if (lastTweet != null) {
-                        lastId = lastTweet.getid();
-                    }
-                }
-
-                System.out.println("run: #" + run + "; since_id: " + lastId + ";");
+                Date date = new Date();
+                System.out.println(date + ": run: #" + run + "; since_id: " + lastId + ";");
 
                 QueryResult result = search.search(lastId);
                 String warning = result.getWarning();

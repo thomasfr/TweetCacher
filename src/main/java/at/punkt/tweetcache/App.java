@@ -8,7 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class App extends Thread {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("META-INF/spring/bootstrap.xml");
 
         int sleep = 60000;

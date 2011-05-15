@@ -13,14 +13,14 @@ import java.util.Date;
 public class Tweet {
 
     private long id;
-    private String fromUser = "";
-    private String isoLanguageCode = "";
-    private String profileImageUrl = "";
-    private String source = "";
-    private String text = "";
-    private long toUserId = 0;
-    private Date createdAt = new Date();
-    private long fromUserId = 0;
+    private String fromUser;
+    private String isoLanguageCode;
+    private String profileImageUrl;
+    private String source;
+    private String text;
+    private long toUserId = -1;
+    private Date createdAt;
+    private long fromUserId;
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
