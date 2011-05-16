@@ -1,27 +1,21 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package at.punkt.tweetcache;
 
 import at.punkt.tweetcache.domain.Tweet;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.document.mongodb.MongoTemplate;
 
 /**
  *
- * @author thomas
+ * @author Thomas Fritz <fritz@punkt.at>
  */
 public class ImportFromCsv {
 

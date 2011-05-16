@@ -4,7 +4,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- *
+ * 
+ * @author Thomas Fritz <fritz@punkt.at>
  */
 public class App extends Thread {
 

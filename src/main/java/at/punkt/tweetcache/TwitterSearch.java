@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package at.punkt.tweetcache;
 
 import twitter4j.Query;
@@ -12,7 +8,7 @@ import twitter4j.TwitterFactory;
 
 /**
  *
- * @author thomas
+ * @author Thomas Fritz <fritz@punkt.at>
  */
 public class TwitterSearch {
 

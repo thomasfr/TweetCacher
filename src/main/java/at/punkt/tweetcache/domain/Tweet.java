@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package at.punkt.tweetcache.domain;
 
 import java.util.Date;
 
 /**
- *
- * @author thomas
+ * 
+ * @author Thomas Fritz <fritz@punkt.at>
  */
 public class Tweet {
 

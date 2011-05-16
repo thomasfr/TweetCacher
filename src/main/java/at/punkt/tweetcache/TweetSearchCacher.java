@@ -1,10 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package at.punkt.tweetcache;
 
-import com.mongodb.DBCollection;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -19,7 +14,7 @@ import twitter4j.Tweet;
 
 /**
  *
- * @author thomas
+ * @author Thomas Fritz <fritz@punkt.at>
  */
 public class TweetSearchCacher {
 
