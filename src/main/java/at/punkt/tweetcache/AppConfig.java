@@ -6,6 +6,7 @@ import org.springframework.data.document.mongodb.MongoFactoryBean;
 import org.springframework.data.document.mongodb.MongoTemplate;
 
 import com.mongodb.Mongo;
+
 /**
  * 
  * @author Thomas Fritz <fritz@punkt.at>
@@ -34,4 +35,10 @@ public class AppConfig {
         return new TwitterSearch();
     }
 
+    public @Bean
+    TweetSearchCacher mongoTest(TwitterSearch search) {
+        TweetSearchCacher cacher = new TweetSearchCacher();
+        cacher.setSearch(search);
+        return cacher;
+    }
 }
