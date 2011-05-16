@@ -53,9 +53,10 @@ public class TweetSearchCacher {
             Sort sort = query.sort();
             sort.on("_id", Order.DESCENDING);
             query.limit(1);
-            at.punkt.tweetcache.domain.Tweet lastTweet = mongoTemplate.findOne(query, at.punkt.tweetcache.domain.Tweet.class);
-            if (lastTweet != null) {
-                lastId = lastTweet.getid();
+            List<at.punkt.tweetcache.domain.Tweet> lastTweets = mongoTemplate.find(query, at.punkt.tweetcache.domain.Tweet.class);
+            if (lastTweets != null) {
+                at.punkt.tweetcache.domain.Tweet latestTweet = lastTweets.get(0);
+                lastId = latestTweet.getid();
             }
         }
         while (true) {

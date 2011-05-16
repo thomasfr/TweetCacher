@@ -13,14 +13,14 @@ public class App extends Thread {
 
         int sleep = 60000;
         String query = "";
-
-        if (args.length <= 0) {
+        if (args.length <= 0 || args.length > 2) {
             System.out.println("Arguments Missing. Usage:");
             System.out.println("\"[QUERY]\" [TIMEOUT_IN_MINUTES]");
             System.exit(-1);
         } else if (args.length >= 1) {
             query = args[0];
-        } else if (args.length >= 2) {
+        }
+        if (args.length >= 2) {
             sleep = Integer.parseInt(args[1]);
             if (sleep < 1) {
                 sleep = 1;
@@ -28,11 +28,12 @@ public class App extends Thread {
             // milliseconds
             sleep = sleep * 1000 * 60;
         }
-        
+
         TwitterSearch search = context.getBean(TwitterSearch.class);
         search.setSearchQuery(query);
         TweetSearchCacher searchCacher = context.getBean(TweetSearchCacher.class);
         searchCacher.setSearch(search);
+        searchCacher.setSleep(sleep);
 
         System.out.println("Using query: " + query);
         searchCacher.run();
